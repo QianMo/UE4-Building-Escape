@@ -34,4 +34,21 @@ public:
 	// Ray-cast and grab what is in reach
 	void Grab( );
 	
+	// Called when grab is released
+	void Release( );
+
+	// Find attached phyics handle
+	void FindPhysicsHandleComponent( );
+
+	// Setup (assumed) attached input component
+	void SetupInputComponent( );
+
+   // Return hit for first physics body in reach
+	const FHitResult GetFirstPhysicsBodyInReach( );
+
+	// Return current start of reach line
+	FVector GetReachLineStart( );
+
+	// Return current end of reach line
+	FVector GetReachLineEnd( );
 };
