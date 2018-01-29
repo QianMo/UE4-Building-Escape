@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "UE4BuildingEscape.h"
 #include "OpenDoor.h"
@@ -34,29 +34,27 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// Poll the Trigger Volume
-	if (GetTotalMassOfActorsOnPlate( ) > 30.0f) // TODO make into a parameter
+	if (GetTotalMassOfActorsOnPlate( ) > TriggerMass) // TODO make into a parameter
 	{
-		OpenDoor( );
-		LastDoorOpenTime = GetWorld( )->GetTimeSeconds( );
+		OnOpen.Broadcast( );
 	}
-
-	// Check if it'is time to close the door
-	if (GetWorld( )->GetTimeSeconds( ) - LastDoorOpenTime > DoorClosrDelay)
+	else
 	{
-		CloseDoor( );
+		OnClose.Broadcast( );
 	}
 }
 
 void UOpenDoor::OpenDoor( )
 {
 	// Set the door rotation
-	Owner->SetActorRotation(FRotator(0.0f, OpenAngle, 0.0f));
+	//Owner->SetActorRotation(FRotator(0.0f, OpenAngle, 0.0f));
+	//OnOpen.Broadcast( );
 }
 
 void UOpenDoor::CloseDoor( )
 {
 	// Set the door rotation
-	Owner->SetActorRotation(FRotator(0.0f, 0.0f, 0.0f));
+	//Owner->SetActorRotation(FRotator(0.0f, 0.0f, 0.0f));
 }
 
 float UOpenDoor::GetTotalMassOfActorsOnPlate( )
